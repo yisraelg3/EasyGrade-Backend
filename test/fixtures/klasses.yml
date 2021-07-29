@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  teacher: one
+  subject: MyString
+  grade: MyString
+  locked: false
+
+two:
+  teacher: two
+  subject: MyString
+  grade: MyString
+  locked: false
