@@ -41,14 +41,14 @@ class ApplicationController < ActionController::API
     end
 
     def authorized
-        render json: {message: "Please log in"}, status: :unauthorized unless logged_in?
+        render json: {errors: "Please log in"}, status: :unauthorized unless logged_in?
     end
 
     def authorized_admin
-        render json: {message: "Unauthorized"}, status: :unauthorized unless logged_in? && @admin
+        render json: {errors: "Unauthorized"}, status: :unauthorized unless logged_in? && @admin
     end
 
     def authorized_admin_or_teacher
-        render json: {message: "Unauthorized"}, status: :unauthorized unless logged_in? && (@admin || @teacher)
+        render json: {errors: "Unauthorized"}, status: :unauthorized unless logged_in? && (@admin || @teacher)
     end
 end

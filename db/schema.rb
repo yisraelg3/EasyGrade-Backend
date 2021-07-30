@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 2021_07_20_215800) do
     t.bigint "student_id"
     t.string "category"
     t.string "student_grade"
-    t.date "year"
+    t.integer "year"
     t.integer "semester"
     t.text "comment"
+    t.boolean "locked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["klass_id"], name: "index_grade_categories_on_klass_id"

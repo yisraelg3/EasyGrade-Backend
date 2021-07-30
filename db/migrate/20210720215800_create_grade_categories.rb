@@ -5,9 +5,10 @@ class CreateGradeCategories < ActiveRecord::Migration[6.1]
       t.belongs_to :student,  foreign_key: true
       t.string :category
       t.string :student_grade
-      t.date :year
+      t.integer :year
       t.integer :semester
       t.text :comment
+      t.boolean :locked
 
       t.timestamps
     end

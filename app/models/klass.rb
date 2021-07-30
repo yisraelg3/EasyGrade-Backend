@@ -10,7 +10,7 @@ class Klass < ApplicationRecord
   def create_grade_categories_for_student(student)
     # byebug
     self.grade_categories.uniq{|category| category.category}.map do |grade_category| 
-      self.grade_categories.create!(category: grade_category.category, student: student, klass: self)
+      self.grade_categories.create!(category: grade_category.category, student: student, klass: self, locked: false)
     end
   end
 
@@ -19,7 +19,7 @@ class Klass < ApplicationRecord
     student_id_array.map do |student_id|
       # byebug
       # self.grade_categories.uniq{|category| category.category}.each do |grade_category| 
-        self.grade_categories.create!(student_id: student_id) 
+        self.grade_categories.create!(student_id: student_id, locked: false) 
       # end
     end
   end
@@ -39,6 +39,22 @@ class Klass < ApplicationRecord
     # byebug
     grade_categories.map do |category|
       self.grade_categories.create!(category: category)
+    end
+  end
+
+  def admin_update_grades(grades_array, locked)
+    grades_array.each do |grade|
+      # byebug
+      grade_category = self.grade_categories.find(grade[:id])
+      grade_category.update(student_grade: grade[:student_grade], locked: locked)
+    end
+  end
+
+  def teacher_update_grades(grades_array, locked)
+    grades_array.each do |grade|
+      # byebug
+      grade_category = self.grade_categories.find(grade[:id])
+      grade_category.update(student_grade: grade[:student_grade])
     end
   end
 end

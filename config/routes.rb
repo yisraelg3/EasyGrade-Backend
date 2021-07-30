@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   post '/teacher_login', to: "teachers#login"
 
   get '/me', to: "admins#me"
+
+  patch '/grade_categories/update_class_grades', to: "grade_categories#update_class_grades"
+  patch '/grade_categories/update_student_grades', to: "grade_categories#update_student_grades"
 end
