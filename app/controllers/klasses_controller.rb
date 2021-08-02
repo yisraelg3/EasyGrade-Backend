@@ -43,8 +43,8 @@ rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
         to_destroy = @klass.grade_categories.pluck(:student_id)-params[:currentStudents]
         to_create = params[:currentStudents]-@klass.grade_categories.pluck(:student_id)
 
-        @klass.destroy_grade_categories_from_array(to_destroy)
-        @klass.create_grade_categories_from_array(to_create)
+        @klass.destroy_grade_categories_from_array(to_destroy, params[:year])
+        @klass.create_grade_categories_from_array(to_create, params[:year])
 
         updated_grade_categories = @klass.grade_categories
         render json: {klass: KlassSerializer.new(@klass), 

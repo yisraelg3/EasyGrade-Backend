@@ -32,8 +32,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
         to_destroy = @student.grade_categories.pluck(:klass_id)-params[:currentClasses]
         to_create = params[:currentClasses]-@student.grade_categories.pluck(:klass_id)
 
-        @student.destroy_grade_categories_from_array(to_destroy)
-        @student.create_grade_categories_from_array(to_create)
+        @student.destroy_grade_categories_from_array(to_destroy, params[:year])
+        @student.create_grade_categories_from_array(to_create, params[:year])
 
         updated_grade_categories = @student.grade_categories
         render json: {student: StudentSerializer.new(@student), 
