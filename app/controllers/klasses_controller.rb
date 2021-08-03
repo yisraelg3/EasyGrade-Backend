@@ -11,7 +11,7 @@ rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
         params[:teacher_id] = @admin.teachers.first.id unless params[:teacher_id].to_i > 0
         teacher = @admin.teachers.find(params[:teacher_id])
         new_class = teacher.klasses.create!(class_params)
-        new_class.create_grade_categories_from_array(params[:currentStudents])
+        new_class.create_grade_categories_from_array(params[:currentStudents], params[:year])
         new_grade_categories = new_class.grade_categories
         # new_grade_categories = new_class.create_grade_categories_for_new_klass(params[:grade_categories])
         # byebug

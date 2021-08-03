@@ -11,7 +11,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
         parent = @admin.parents.find(params[:parent_id])
 
         new_student = parent.students.create!(student_params)
-        new_student.create_grade_categories_from_array(params[:currentClasses])
+        new_student.create_grade_categories_from_array(params[:currentClasses], params[:year])
 
         new_grade_categories = new_student.grade_categories
         render json: {student: StudentSerializer.new(new_student),

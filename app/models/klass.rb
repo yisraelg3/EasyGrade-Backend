@@ -43,8 +43,7 @@ class Klass < ApplicationRecord
 
   def admin_update_grades(grades_array, locked, year)
     grades_array.each do |grade|
-
-      semesters = grade.keys.filter{|key| key != "subject" && key != "key"}
+      semesters = grade.keys.filter{|key| key != "student" && key != "key"}
       semesters.each do |semester|
         # byebug
         grade_category = self.grade_categories.find_by(student_id: grade[:key], semester: semester, year: year)
