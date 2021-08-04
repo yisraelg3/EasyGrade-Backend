@@ -1,5 +1,5 @@
 class AdminSerializer < ActiveModel::Serializer
-  attributes :id, :username, :professional_title
+  attributes :id, :username, :professional_title, :account_type
   has_many :teachers, serializer: AdminTeacherSerializer
   has_many :klasses
   has_many :students

@@ -56,11 +56,18 @@ class Klass < ApplicationRecord
     end
   end
 
-  def teacher_update_grades(grades_array, locked, year)
+  def teacher_update_grades(grades_array, year)
     grades_array.each do |grade|
-      # byebug
-      grade_category = self.grade_categories.find_by(klass_id: grade[:key], semester: semester, year: year)
-      grade_category.update(student_grade: grade[:student_grade])
+      semesters = grade.keys.filter{|key| key != "student" && key != "key"}
+      semesters.each do |semester|
+        # byebug
+        grade_category = self.grade_categories.find_by(student_id: grade[:key], semester: semester, year: year)
+        if grade_category
+          grade_category.update(student_grade: grade[semester])
+        else
+          self.grade_categories.create!(student_id: grade[:key], semester: semester, student_grade: grade[semester], year: year)
+        end
+      end
     end
   end
 end

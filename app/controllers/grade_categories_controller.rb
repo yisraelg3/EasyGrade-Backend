@@ -7,7 +7,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
         # byebug
         if @admin
            @klass = @admin.klasses.find(params[:class_id])
-        #byebug
            @klass.admin_update_grades(params[:data], params[:locked], params[:year])   
         elsif @teacher
            @klass = @teacher.klasses.find(params[:class_id])
@@ -25,7 +24,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
         # byebug
            @student.admin_update_grades(params[:data], params[:locked], params[:year])   
         elsif @teacher
-                    byebug
+                    # byebug
            @student = @teacher.students.find(params[:student_id])
            @student.teacher_update_grades(params[:data], params[:year])   
         end

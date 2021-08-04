@@ -3,6 +3,11 @@ class GradeCategory < ApplicationRecord
   belongs_to :klass
 
   # validates :category, uniqueness: true, if: -> {Klass.all.pluck(:id).include?(Proc.new.klass_id)}
+  validates :year, presence: true
+  validates :semester, presence: true
+
+  validates :year, numericality: true 
+  validates :semester, numericality: true
 
   def subject
     self.klass.subject

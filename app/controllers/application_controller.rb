@@ -25,11 +25,14 @@ class ApplicationController < ActionController::API
         if decoded_token && decoded_token[0]['user_id'] && decoded_token[0]['class']
             user_id = decoded_token[0]['user_id']
             if decoded_token[0]['class'] == "Admin"
-                @admin = Admin.find_by({id: user_id})
+                @admin = Admin.includes(:klasses, :students, :teachers, :grade_categories).find_by({id: user_id})
+                @user = @admin
             elsif decoded_token[0]['class'] == "Teacher"
-                @teacher = Teacher.find_by({id: user_id})
+                @teacher = Teacher.includes(:klasses, :students).find_by({id: user_id})
+                @user = @teacher
             elsif decoded_token[0]['class'] == "Parent"
-                @parent = Parent.find_by({id: user_id})
+                @parent = Parent.includes(:students).find_by({id: user_id})
+                @user = @parent
             else 
                 nil
             end

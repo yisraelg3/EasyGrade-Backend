@@ -21,4 +21,8 @@ class Admin < ApplicationRecord
         # teacher.klasses.create!(grade: "No ", subject: "class")
         parent = self.parents.create!()
     end
+
+    def account_type
+        self.class.name
+    end
 end

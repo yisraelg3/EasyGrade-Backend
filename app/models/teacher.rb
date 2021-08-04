@@ -13,5 +13,8 @@ class Teacher < ApplicationRecord
   def professional_title
     "#{title} #{last_name}".strip
   end
-  
+
+  def account_type
+    self.class.name
+  end
 end

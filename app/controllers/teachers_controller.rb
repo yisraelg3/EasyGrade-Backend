@@ -3,7 +3,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
 rescue_from ActiveRecord::RecordInvalid, with: :display_errors
 rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
 
-    before_action :authorized_admin
+    before_action :authorized_admin, only: [:create,:destroy, :update]
     before_action :find_teacher, only: [:destroy, :update]
     
     def create 
@@ -28,8 +28,18 @@ rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
         render json: @teacher
     end
 
-    private 
+    def login
+        # byebug
+        teacher = Teacher.find_by(username: params[:username])
+        if teacher && teacher.authenticate(params[:password])
+            wristband = encode_token({user_id: teacher.id, class: 'Teacher'})
+            render json: {user: TeacherSerializer.new(teacher), grade_categories: ActiveModel::Serializer::CollectionSerializer.new(GradeCategory.all, each_serializer: GradeCategorySerializer),  token: wristband}
+        else
+            render json: {errors: "wrong username or password"}
+        end
+    end
 
+    private 
     def find_teacher
         @teacher = @admin.teachers.find(params[:id])
     end
