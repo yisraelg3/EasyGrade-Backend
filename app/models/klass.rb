@@ -43,14 +43,14 @@ class Klass < ApplicationRecord
 
   def admin_update_grades(grades_array, locked, year)
     grades_array.each do |grade|
-      semesters = grade.keys.filter{|key| key != "student" && key != "key"}
+      semesters = grade.keys.filter{|key| key != "student" && key != "key" && key != "comments"}
       semesters.each do |semester|
-        # byebug
         grade_category = self.grade_categories.find_by(student_id: grade[:key], semester: semester, year: year)
+        # byebug
         if grade_category
-          grade_category.update(student_grade: grade[semester], locked: locked)
+          grade_category.update(student_grade: grade[semester], locked: locked, comment: grade[:comments])
         else
-          self.grade_categories.create!(student_id: grade[:key], semester: semester, student_grade: grade[semester], locked: locked, year: year)
+          self.grade_categories.create!(student_id: grade[:key], semester: semester, student_grade: grade[semester], locked: locked, year: year, comment: grade[:comments])
         end
       end
     end
@@ -58,14 +58,14 @@ class Klass < ApplicationRecord
 
   def teacher_update_grades(grades_array, year)
     grades_array.each do |grade|
-      semesters = grade.keys.filter{|key| key != "student" && key != "key"}
+      semesters = grade.keys.filter{|key| key != "student" && key != "key" && key != "comments"}
       semesters.each do |semester|
         # byebug
         grade_category = self.grade_categories.find_by(student_id: grade[:key], semester: semester, year: year)
         if grade_category
-          grade_category.update(student_grade: grade[semester])
+          grade_category.update(student_grade: grade[semester], comment: grade[:comments])
         else
-          self.grade_categories.create!(student_id: grade[:key], semester: semester, student_grade: grade[semester], year: year)
+          self.grade_categories.create!(student_id: grade[:key], semester: semester, student_grade: grade[semester], year: year, comment: grade[:comments])
         end
       end
     end

@@ -12,12 +12,11 @@ rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
     end
 
     def destroy
-        # byebug
         default_teacher = @admin.teachers.find_by!(title: "No", last_name: "teacher")
         if default_teacher && @teacher != default_teacher
             @teacher.klasses.each {|klass| klass.update(teacher: default_teacher)}
             @teacher.destroy!
-            render json: @admin.klasses
+            render json: @teacher
         else
             render json: {errors: "Unable to delete teacher"}
         end

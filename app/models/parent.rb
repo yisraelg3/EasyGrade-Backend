@@ -6,7 +6,7 @@ class Parent < ApplicationRecord
   has_many :klasses, through: :students
 
   validates :username, presence: true
-  validates :username, uniqueness: true
+  # validates :username, uniqueness: true
 
   def account_type
     self.class.name

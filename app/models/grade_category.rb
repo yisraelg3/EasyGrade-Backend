@@ -7,7 +7,7 @@ class GradeCategory < ApplicationRecord
   validates :semester, presence: true
 
   validates :year, numericality: true 
-  validates :semester, numericality: true
+  # validates :semester, numericality: true
 
   def subject
     self.klass.subject

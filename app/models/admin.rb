@@ -18,8 +18,9 @@ class Admin < ApplicationRecord
 
     def create_default
         teacher = self.teachers.create!(title: "No", last_name: "teacher")
+        # byebug
         # teacher.klasses.create!(grade: "No ", subject: "class")
-        parent = self.parents.create!()
+        parent = self.parents.create!(username: "parent")
     end
 
     def account_type

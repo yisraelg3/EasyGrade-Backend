@@ -20,12 +20,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
     def update_student_grades
         if @admin 
-           @student = @admin.students.find(params[:student_id])
+           @student = @admin.students.includes(:grade_categories).find(params[:student_id])
         # byebug
            @student.admin_update_grades(params[:data], params[:locked], params[:year])   
         elsif @teacher
                     # byebug
-           @student = @teacher.students.find(params[:student_id])
+           @student = @teacher.students.includes(:grade_categories).find(params[:student_id])
            @student.teacher_update_grades(params[:data], params[:year])   
         end
         grade_categories = @student.grade_categories

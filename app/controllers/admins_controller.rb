@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
 rescue_from ActiveRecord::RecordInvalid, with: :display_errors
 rescue_from ActiveRecord::RecordNotFound, with: :not_found
-
+    
     before_action :authorized, only: [:me]
     def create
         new_admin = Admin.create!(admin_params)
