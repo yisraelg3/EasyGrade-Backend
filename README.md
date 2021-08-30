@@ -1,7 +1,7 @@
 ![IMG-20210804-WA0072](https://user-images.githubusercontent.com/50586114/131397463-edb237ad-1291-4594-9964-e3ff6853d9e8.jpg)
 
 # EasyGrade
-<img src='https://img.shields.io/badge/release-v.1.0-blue'>
+<img src='https://img.shields.io/badge/Release-v.1.0-blue'> <img src='https://img.shields.io/badge/Ruby-2.7.2-red'> <img src='https://img.shields.io/badge/Rails-6.1.4-red'> 
 
 A web application for schools to organize their student report cards. Where school administrators, teachers and parents can input and/or view the students grades, on a simple, easy to understand interface.
 
